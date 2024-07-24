@@ -1,7 +1,9 @@
 package com.example.likeminds.view
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -12,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -31,6 +34,8 @@ fun HomeScreen(navController: NavHostController) {
             CharacterItem(item = item) {
                 navController.navigate("details/${item.index}")
             }
+            
+            Spacer(modifier = Modifier.height(20.dp))
         }
     }
 }
@@ -45,23 +50,23 @@ fun CharacterItem(
             .fillMaxWidth()
             .clickable { onClick(item.index) }
             .padding(8.dp)
+            .background(Color.White),
     ) {
-        if (item.image != null) {
-            AsyncImage(
-                model = item.image,
-                contentDescription = "Character Image",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-            )
-        }
-        Text(text = item.fullName ?: "Unknown Name")
-        Text(text = item.nickName ?: "Unknown Nickname")
-        Text(text = item.hogwartsHouse ?: "Unknown House")
-        Text(text = item.interpretedBy ?: "Unknown Actor")
+        AsyncImage(
+            model = item.image,
+            contentDescription = "Character Image",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+        )
+        Text(text = "Name: ${item.fullName ?: " Unknown Name"}" , color = Color.Black)
+        Text(text = "Nick Name: ${item.nickName ?: "Unknown Nickname"}", color = Color.Black)
+        Text(text = "Hogwarts House: ${item.hogwartsHouse ?: "Unknown House"}", color = Color.Black)
+        Text(text = "Interpreted By: ${item.interpretedBy ?: "Unknown Actor"}", color = Color.Black)
+        Text(text = "Children's name", color = Color.Black)
         item.children.forEach { child ->
-            Text(text = child)
+            Text(text = "   $child", color = Color.Black)
         }
-        Text(text = item.birthDate ?: "Unknown Birthdate")
+        Text(text = "DOB: ${ item.birthDate ?: "Unknown Birthdate" }", color = Color.Black)
     }
 }
